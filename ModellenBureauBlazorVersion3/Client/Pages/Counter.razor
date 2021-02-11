@@ -1,0 +1,44 @@
+﻿@page "/"
+
+<h1>Counter</h1>
+
+<p>Current count: @currentCount</p>
+
+<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+<table class="table">
+    <thead>
+        <tr>
+            @*<th></th>*@
+            <th>string</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var Fotomodel in TestStrings)
+        {
+            <tr>
+                @*<td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>*@
+                <td>@Fotomodel</td>
+      
+                <td>
+                    <a href="" class="btn btn-primary table-btn">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a href="" class="btn btn-primary table-btn">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<button @onclick="Clicked"></button>
+
+@code {
+    private int currentCount = 0;
+
+    private void IncrementCount()
+    {
+        currentCount++;
+    }
+}
