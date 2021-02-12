@@ -1,7 +1,40 @@
 ﻿@page "/modelmainpage"
+@using Microsoft.AspNetCore.Components;
 
-<h3>ModelMainPage</h3>
+<style>
+    .placement {
+        transform: translate(250px, 150px);
+    }
+
+    .textplacement {
+        display: inline-block;
+        transform: translate(50px,300px);
+        color: gray;
+    }
+
+    div.item {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 320px;
+    }
+</style>
+<img src="/Images/registration-icon.png" width="250" class="placement" />
+<span class="textplacement" @onclick="GoToAddData">Add model data</span>
+<img src="/Images/event-icon.png" width="250" class="placement" />
+<span class="textplacement" @onclick="GoToEvents">Go to events overview</span>
 
 @code {
+    [Inject]
+    public NavigationManager navmanager { get; set; }
 
+    public void GoToAddData()
+    {
+        navmanager.NavigateTo("/modeladddata");
+    }
+
+    public void GoToEvents()
+    {
+        navmanager.NavigateTo("/modeleventsoverview");
+    }
 }

@@ -38,6 +38,7 @@ namespace ModellenBureauBlazorVersion2.Pages
           if((adminitem.Any(a => a.Username == loginmodel.UserName))&&(adminitem.Any(a => a.Password == loginmodel.Password)))
           {
                 navmanager.NavigateTo("/adminmainpage");  
+                
           }
           if ((clientitem.Any(a => a.UserName == loginmodel.UserName)) && (clientitem.Any(a => a.Password == loginmodel.Password)))
           {

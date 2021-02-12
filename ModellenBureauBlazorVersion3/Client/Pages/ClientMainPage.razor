@@ -1,7 +1,45 @@
-﻿@page "/clientmainpage"
+﻿@page "/"
+@using Microsoft.AspNetCore.Components;
+<style>
+    .placement {
+        transform: translate(150px, 150px);
+    }
 
-<h3>ClientMainPage</h3>
+    .textplacement {
+        display: inline-block;
+        transform: translate(-50px,300px);
+        color: gray;
+    }
 
+    div.item {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 320px;
+    }
+</style>
+<img src="/Images/registration-icon.png" width="250" class="placement" @onclick="GoToAddData" />
+<span class="textplacement">Add model data</span>
+<img src="/Images/event-icon.png" width="250" class="placement" @onclick="GoToAddEvent" />
+<span class="textplacement">Add event</span>
+<img src="/Images/model-icon.png" width="250" class="placement" @onclick="GoToModelsOverview"/>
+<span class="textplacement">Go to models overview</span>
 @code {
+    [Inject]
+    public NavigationManager navmanager { get; set; }
 
+    public void GoToAddData()
+    {
+        navmanager.NavigateTo("/clientadddata");
+    }
+
+    public void GoToAddEvent()
+    {
+        navmanager.NavigateTo("/clientaddevent");
+    }
+
+    public void GoToModelsOverview()
+    {
+        navmanager.NavigateTo("/clientmodelsoverview");
+    }
 }

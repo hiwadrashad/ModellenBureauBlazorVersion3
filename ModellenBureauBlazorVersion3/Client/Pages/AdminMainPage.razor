@@ -1,8 +1,37 @@
 ﻿@page "/adminmainpage"
-<img src="~/Images/failed-icon.png"/>
-<img src="~/Images/success-icon.png" />
+@using Microsoft.AspNetCore.Components;
+<style>
+    .placement {
+        transform: translate(150px, 150px);
+    }
+    .textplacement {    
+     display: inline-block;
+     transform:translate(-100px,300px);
+    }
+    div.item {
+        vertical-align: top;
+        display: inline-block;
+        text-align: center;
+        width: 320px;
 
+    }
+</style>
+<img src="/Images/failed-icon.png" width="250" class="placement" @onclick="GoToNotAcceptedAccounts" />
+<span class="textplacement">Go to not accepted accounts overview</span>
+<img src="/Images/success-icon.png" width="250" class="placement" @onclick="GoToAcceptedAccounts" />
+<span class="textplacement">Go to accepted accounts overview</span>
 
 @code {
+    [Inject]
+    public NavigationManager navmanager { get; set; }
 
+    public void GoToNotAcceptedAccounts()
+    {
+        navmanager.NavigateTo("/adminoverviewtonotacceptedaccounts");
+    }
+
+    public void GoToAcceptedAccounts()
+    {
+        navmanager.NavigateTo("/adminoverviewacceptedaccounts");
+    }
 }
