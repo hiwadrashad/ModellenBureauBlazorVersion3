@@ -27,6 +27,26 @@ namespace ModellenBureauBlazorVersion3.Client
                 client.BaseAddress = new Uri("https://localhost:44393/");
             });
 
+            builder.Services.AddHttpClient<IClientDataService, ClientDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44393/");
+            });
+
+            builder.Services.AddHttpClient<IEventDataService, EventDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44393/");
+            });
+
+            builder.Services.AddHttpClient<IMaleModelDataService, MaleModelDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44393/");
+            });
+
+            builder.Services.AddHttpClient<IFemaleModelDataService, FemaleModelDataService>(client =>
+            {
+                client.BaseAddress = new Uri("https://localhost:44393/");
+            });
+
             // Supply HttpClient instances that include access tokens when making requests to the server project
             builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("ModellenBureauBlazorVersion3.ServerAPI"));
 

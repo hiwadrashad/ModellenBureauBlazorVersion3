@@ -1,14 +1,14 @@
-﻿@page "/"
+﻿@page "/Counter"
 
 <h1>Counter</h1>
 
 <p>Current count: @currentCount</p>
 
 <button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
-<table class="table">
+@*<table class="table">
     <thead>
         <tr>
-            @*<th></th>*@
+            <th></th>
             <th>string</th>
             <th></th>
         </tr>
@@ -17,7 +17,6 @@
         @foreach (var Fotomodel in TestStrings)
         {
             <tr>
-                @*<td><img src="@($"https://gillcleerenpluralsight.blob.core.windows.net/person/{employee.EmployeeId}-small.jpg")" class="rounded-circle" /></td>*@
                 <td>@Fotomodel</td>
       
                 <td>
@@ -31,8 +30,12 @@
             </tr>
         }
     </tbody>
-</table>
-<button @onclick="Clicked"></button>
+</table>*@
+@if (awaitedlist != null)
+{
+<div>@awaitedlist.FirstOrDefault()</div>
+}
+<button @onclick="Clicked">async click button</button>
 
 @code {
     private int currentCount = 0;

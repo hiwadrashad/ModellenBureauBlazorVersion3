@@ -13,29 +13,27 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AdminController : ControllerBase
+    public class ClientsController : ControllerBase
     {
-        // GET: api/<AdminController>
         IDataRepository _dataService = MockingRepository.GetMockDataService();
 
         [HttpGet]
 
-        public IActionResult Get()
+        public IEnumerable<ClientModel> Get()
         {
-
-            return Ok(_dataService.ReturnAllAdmins());
+            return _dataService.ReturnAllClients();
         }
 
         [HttpGet("{id}")]
 
-        AdminModel Get(string id)
+        ClientModel Get(string id)
         {
-            return _dataService.ReturnAdmin(id);
+            return _dataService.ReturnClient(id);
 
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] AdminModel model)
+        public IActionResult Post([FromBody] ClientModel model)
         {
             if (model == null)
                 return BadRequest();
@@ -43,11 +41,11 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            return Created("admin", _dataService.AddAdminReturnType(model));
+            return Created("client", _dataService.AddClientReturnType(model));
         }
 
         [HttpPut]
-        public IActionResult Put([FromBody] AdminModel model)
+        public IActionResult Put([FromBody] ClientModel model)
         {
             if (model == null)
                 return BadRequest();
@@ -55,12 +53,12 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
 
-            var item = _dataService.ReturnAdmin(model.id);
+            var item = _dataService.ReturnClient(model.id);
 
             if (item == null)
                 return NotFound();
 
-            _dataService.UpdateAdmin(model);
+            _dataService.UpdateClient(model);
 
             return NoContent(); //success
         }
@@ -68,15 +66,14 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
         [HttpDelete("{id}")]
         public IActionResult Delete(string id)
         {
-
             if (id == null)
                 return BadRequest();
 
-            var item = _dataService.ReturnAdmin(id);
+            var item = _dataService.ReturnClient(id);
             if (item == null)
                 return NotFound();
 
-            _dataService.RemoveAdmin(item);
+            _dataService.RemoveClient(item);
 
             return NoContent();//success
         }

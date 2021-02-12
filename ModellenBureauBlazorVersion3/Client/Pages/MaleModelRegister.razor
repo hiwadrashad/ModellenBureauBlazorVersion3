@@ -1,0 +1,121 @@
+﻿@page "/malemodelregister"
+    @using Data.Models;
+    @using Microsoft.AspNetCore.Components;
+    @using ModellenBureauBlazorVersion3.Client.DataServices;
+    <style>
+        @@import "bourbon";
+
+        body {
+            background: #00ff90 !important;
+        }
+
+        .wrapper {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .form-signin {
+            max-width: 380px;
+            padding: 15px 35px 45px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            .form-signin-heading, .checkbox
+
+        {
+            margin-bottom: 30px;
+        }
+
+        .checkbox {
+            font-weight: normal;
+        }
+
+        .form-control {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            @@include box-sizing(border-box);
+            &:focus
+
+        {
+            z-index: 2;
+        }
+
+        }
+
+        input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        input[type="password"] {
+            margin-bottom: 20px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        }
+    </style>
+
+    <EditForm Model="@loginmodel" OnValidSubmit="@Register">
+        <div class="wrapper">
+            <div class="form-signin">
+
+                <h2 class="form-signin-heading">Please register</h2>
+                <input type="text" class="form-control" name="username" @bind-value="@loginmodel.UserName" placeholder="User name" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" @bind-value="@loginmodel.Password" placeholder="Password" required="" />
+                <button class="btn btn-lg btn-success btn-block" type="submit">Register</button>
+                <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToLogin">Go to login</button>
+                <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToClientRegister">client?</button>
+                <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToFemaleRegister">female model?</button>
+
+
+            </div>
+        </div>
+    </EditForm>
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+
+        ClientModel loginmodel = new ClientModel();
+
+        [Inject]
+        public NavigationManager navmanager { get; set; }
+
+        public async void Register()
+        {
+            MaleModeModel model = new MaleModeModel();
+            model.Username = loginmodel.UserName;
+            model.Password = loginmodel.Password;
+            await _maleModelDataService.AddMaleModel(model);
+            navmanager.NavigateTo("/");
+        }
+        public void GoToLogin()
+        {
+            navmanager.NavigateTo("/");
+        }
+
+        public void GoToMaleRegister()
+        {
+            navmanager.NavigateTo("/malemodelregister");
+        }
+
+        public void GoToFemaleRegister()
+        {
+            navmanager.NavigateTo("/femalemodelregister");
+        }
+
+        public void GoToClientRegister()
+        {
+            navmanager.NavigateTo("/register");
+        }
+    }

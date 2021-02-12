@@ -9,18 +9,18 @@ namespace ModellenBureauBlazorVersion3.Client.Pages
 {
     public partial class Index
     {
-        [Inject]
-        public IAdminDataService _dataService { get; set; }
-        public List<string> TestStrings { get; set; }
-        protected override async Task OnInitializedAsync()
-        {
-            TestStrings = (await _dataService.GetAllAdmins()).ToList();
-        }
+        //[Inject]
+        //public IAdminDataService _dataService { get; set; }
+        //public List<string> TestStrings { get; set; }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    TestStrings = (await _dataService.GetAllAdmins()).ToList();
+        //}
 
-        public async void Clicked()
-        {
-            TestStrings = (await _dataService.GetAllAdmins()).ToList();
-            StateHasChanged();
-        }
+        //public async void Clicked()
+        //{
+        //    TestStrings = (await _dataService.GetAllAdmins()).ToList();
+        //    StateHasChanged();
+        //}
     }
 }

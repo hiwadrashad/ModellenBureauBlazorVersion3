@@ -8,6 +8,10 @@ namespace ModellenBureauBlazorVersion3.Client.DataServices
 {
     public interface IAdminDataService
     {
-       public Task<IEnumerable<string>> GetAllAdmins();
+         Task<AdminModel> AddAdmin(AdminModel model);
+         Task DeleteAdminModel(string id);
+         Task<IEnumerable<AdminModel>> GetAllAdmins();
+         Task<AdminModel> GetAdminModelDetails(string id);
+         Task UpdateAdminModel(AdminModel model);
     }
 }

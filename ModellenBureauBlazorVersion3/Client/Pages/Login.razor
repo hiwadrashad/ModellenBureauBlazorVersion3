@@ -1,0 +1,121 @@
+﻿@page "/"
+@inject NavigationManager UriHelper
+    @using Data.Models;
+    @using Microsoft.AspNetCore.Components;
+    @using ModellenBureauBlazorVersion3.Client.DataServices;
+    @using System;
+    @using System.Linq;
+    <style>
+        @@import "bourbon";
+
+        body {
+            background: #00ff90 !important;
+        }
+
+        .wrapper {
+            margin-top: 80px;
+            margin-bottom: 80px;
+        }
+
+        .form-signin {
+            max-width: 380px;
+            padding: 15px 35px 45px;
+            margin: 0 auto;
+            background-color: #fff;
+            border: 1px solid rgba(0,0,0,0.1);
+            .form-signin-heading, .checkbox
+
+        {
+            margin-bottom: 30px;
+        }
+
+        .checkbox {
+            font-weight: normal;
+        }
+
+        .form-control {
+            position: relative;
+            font-size: 16px;
+            height: auto;
+            padding: 10px;
+            @@include box-sizing(border-box);
+            &:focus
+
+        {
+            z-index: 2;
+        }
+
+        }
+
+        input[type="text"] {
+            margin-bottom: -1px;
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        input[type="password"] {
+            margin-bottom: 20px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+        }
+    </style>
+
+    <EditForm Model="@loginmodel" OnValidSubmit="@SuccesfullLogin">
+        <div class="wrapper">
+            <div class="form-signin">
+                <h2 class="form-signin-heading">Please login</h2>
+                <input type="text" class="form-control" name="username" @bind-value="loginmodel.UserName" placeholder="User name" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" @bind-value="loginmodel.Password" placeholder="Password" required="" />
+                <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
+                <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToRegister">Register</button>
+            </div>
+        </div>
+    </EditForm>
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+
+        public ClientModel loginmodel = new ClientModel();
+
+        [Inject]
+        public NavigationManager navmanager { get; set; }
+        public void GoToRegister()
+        {
+            navmanager.NavigateTo("/register");
+        }
+
+
+        public async void SuccesfullLogin()
+        {
+            var adminitem = await _adminDataService.GetAllAdmins();
+            var clientitem = await _clientDataService.GetAllClients();
+            var malemodelitem = await _maleModelDataService.GetAllMaleModels();
+            var femalemodelitem = await _femaleModelDataService.GetAllFemaleModels();
+            if ((adminitem.Any(a => a.Username == loginmodel.UserName)) && (adminitem.Any(a => a.Password == loginmodel.Password)))
+            {
+                navmanager.NavigateTo("/adminmainpage");
+            }
+            if ((clientitem.Any(a => a.UserName == loginmodel.UserName)) && (clientitem.Any(a => a.Password == loginmodel.Password)))
+            {
+                navmanager.NavigateTo("/clientmainpage");
+            }
+            if ((femalemodelitem.Any(a => a.Username == loginmodel.UserName)) && (femalemodelitem.Any(a => a.Password == loginmodel.Password)))
+            {
+                navmanager.NavigateTo("/modelmainpage");
+            }
+            if ((malemodelitem.Any(a => a.Username == loginmodel.UserName)) && (malemodelitem.Any(a => a.Password == loginmodel.Password)))
+            {
+                navmanager.NavigateTo("/modelmainpage");
+            }
+
+        }
+    }
