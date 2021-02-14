@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModellenBureauBlazorVersion3.Server", "ModellenBureauBlazorVersion3\Server\ModellenBureauBlazorVersion3.Server.csproj", "{6EBDDBF3-718C-49F3-AE94-11B6D2126DED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModellenBureauBlazorVersion3.Server", "ModellenBureauBlazorVersion3\Server\ModellenBureauBlazorVersion3.Server.csproj", "{6EBDDBF3-718C-49F3-AE94-11B6D2126DED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModellenBureauBlazorVersion3.Client", "ModellenBureauBlazorVersion3\Client\ModellenBureauBlazorVersion3.Client.csproj", "{2EB6D51B-3FE9-4A3F-9598-4A095596E127}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModellenBureauBlazorVersion3.Client", "ModellenBureauBlazorVersion3\Client\ModellenBureauBlazorVersion3.Client.csproj", "{2EB6D51B-3FE9-4A3F-9598-4A095596E127}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ModellenBureauBlazorVersion3.Shared", "ModellenBureauBlazorVersion3\Shared\ModellenBureauBlazorVersion3.Shared.csproj", "{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModellenBureauBlazorVersion3.Shared", "ModellenBureauBlazorVersion3\Shared\ModellenBureauBlazorVersion3.Shared.csproj", "{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -10,6 +10,7 @@ namespace Data.Models
         [Key]
         public string id { get; set; } = Guid.NewGuid().ToString();
         public bool Public { get; set; }
+        public string City { get; set; }
         [Display(Name = "Female models")]
         public List<FemaleModelModel> FemaleModels { get; set; } = new List<FemaleModelModel>();
         [Display(Name = "Male models")]

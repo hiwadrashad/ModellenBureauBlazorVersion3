@@ -26,7 +26,7 @@ namespace Data.Models
         public string EmailAdress { get; set; }
         [Display(Name = "Telephone number")]
         public string TelephoneNumber { get; set; }
-        public int Age { get; set; }
+        public string Age { get; set; }
 
     }
 }

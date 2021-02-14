@@ -45,8 +45,8 @@ namespace Logic.DAL
                   new AdminModel()
             {
              id = Guid.NewGuid().ToString(),
-             Password = "adminpassword",
-             Username = "adminusername"
+             Password = "adminpassword2",
+             Username = "adminusername2"
             }
             };
 

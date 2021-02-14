@@ -1,5 +1,243 @@
 ﻿@page "/modeladddata"
-
-@code {
-
+    @using Data.Models;
+    @using Logic.StaticResources;
+    @using Microsoft.AspNetCore.Components;
+    @using ModellenBureauBlazorVersion3.Client.DataServices;
+    @using System.Threading.Tasks;
+    @using Data.Enums.BioMarker;
+@if (GeneralStaticdata.currentfemalemodel != null)
+{
+<section class="employee-edit">
+    <h1 class="page-title">Edit</h1>
+    <EditForm Model="loginfemalemodel" OnValidSubmit="EditFemaleModel">
+        <div class="form-group row">
+            <label class="col-sm-3">Username </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loginfemalemodel.Username"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.Username)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Password </label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.Password"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.Password)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Age</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.Age"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.Age)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> City</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.City"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.City)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Email</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.EmailAdress"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.EmailAdress)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Firstname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.FirstName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.FirstName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Lastname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.LastName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.LastName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Postal code</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.PostalCode"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.PostalCode)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street name</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.StreetName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.StreetName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.StreetNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.StreetNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Telephone number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginfemalemodel.NAWData.TelephoneNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.NAWData.TelephoneNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Eye color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginfemalemodel.biodata.eyecolor">
+                @foreach (var item in Enum.GetValues(typeof(EyeColor)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.biodata.eyecolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Hair color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginfemalemodel.biodata.haircolor">
+                @foreach (var item in Enum.GetValues(typeof(HairColor)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.biodata.haircolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Height</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginfemalemodel.biodata.height">
+                @foreach (var item in Enum.GetValues(typeof(Height)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.biodata.height)" />
+        </div>
+    </EditForm>
+   
+</section>
 }
+else
+{ 
+<section class="employee-edit">
+    <h1 class="page-title">Edit</h1>
+    <EditForm Model="loginmalemodel" OnValidSubmit="EditMaleModel">
+        <div class="form-group row">
+            <label class="col-sm-3">Username </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loginmalemodel.Username"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.Username)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Password </label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.Password"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.Password)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Age</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.Age"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.Age)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> City</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.City"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.City)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Email</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.EmailAdress"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.EmailAdress)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Firstname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.FirstName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.FirstName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Lastname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.LastName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.LastName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Postal code</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.PostalCode"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.PostalCode)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street name</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.StreetName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.StreetName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.StreetNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.StreetNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Telephone number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@loginmalemodel.NAWData.TelephoneNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.NAWData.TelephoneNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Eye color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginmalemodel.biodata.eyecolor">
+                @foreach (var item in Enum.GetValues(typeof(EyeColor)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.biodata.eyecolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Hair color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginmalemodel.biodata.haircolor">
+                @foreach (var item in Enum.GetValues(typeof(HairColor)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.biodata.haircolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Height</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@loginmalemodel.biodata.height">
+                @foreach (var item in Enum.GetValues(typeof(Height)))
+                    {
+                    <option value="@item">@item</option>
+                    }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.biodata.height)" />
+        </div>
+    </EditForm>
+
+</section>
+}
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+
+        public MaleModeModel loginmalemodel { get; set; }
+        public FemaleModelModel loginfemalemodel { get; set; }
+
+        [Inject]
+        public NavigationManager navmanager { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (GeneralStaticdata.currentfemalemodel != null)
+            {
+                loginfemalemodel = GeneralStaticdata.currentfemalemodel;
+
+            }
+            else
+            {
+                if (GeneralStaticdata.currentmalemodel != null)
+                {
+                    loginmalemodel = GeneralStaticdata.currentmalemodel;
+                }
+                else
+                {
+                    loginmalemodel = new MaleModeModel();
+                }
+            }
+        }
+
+        public async void EditMaleModel()
+        {
+            await _maleModelDataService.UpdateMaleModel(loginmalemodel);
+        }
+
+        public async void EditFemaleModel()
+        {
+            await _femaleModelDataService.UpdateFemaleModel(loginfemalemodel);
+        }
+    }
