@@ -95,6 +95,7 @@
             </InputSelect>
             <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginfemalemodel.biodata.height)" />
         </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
     </EditForm>
    
 </section>
@@ -189,6 +190,7 @@ else
             </InputSelect>
             <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.biodata.height)" />
         </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
     </EditForm>
 
 </section>
@@ -234,10 +236,13 @@ else
         public async void EditMaleModel()
         {
             await _maleModelDataService.UpdateMaleModel(loginmalemodel);
+            navmanager.NavigateTo("/modelmainpage");
         }
 
         public async void EditFemaleModel()
         {
             await _femaleModelDataService.UpdateFemaleModel(loginfemalemodel);
+            navmanager.NavigateTo("/modelmainpage");
+
         }
     }

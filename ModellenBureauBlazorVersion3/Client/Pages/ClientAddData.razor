@@ -1,5 +1,118 @@
 ﻿@page "/clientaddata"
+    @using Data.Models;
+    @using Logic.StaticResources;
+    @using Microsoft.AspNetCore.Components;
+    @using ModellenBureauBlazorVersion3.Client.DataServices;
+    @using System;
+    @using System.Collections.Generic;
+    @using System.Linq;
+    @using System.Threading.Tasks;
 
-@code {
+<section class="employee-edit">
+    <h1 class="page-title">Edit</h1>
+    <EditForm Model="loggedinclient" OnValidSubmit="EditClient">
+        <div class="form-group row">
+            <label class="col-sm-3">Username </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.UserName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.UserName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Password </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.Password"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.Password)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">KVK number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.KVKNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.KVKNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">BTW number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.BTWNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.BTWNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Age </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.Age"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.Age)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">City </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.City"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.City)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">email adress </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.EmailAdress"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.EmailAdress)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">First name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.FirstName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.FirstName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Last name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.LastName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.LastName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Postal code </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.PostalCode"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.PostalCode)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Street name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.StreetName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.StreetName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Street number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.StreetNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.StreetNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Telephone number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.TelephoneNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.TelephoneNumber)" />
+        </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
+    </EditForm>
 
-}
+</section>
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+
+        public ClientModel loggedinclient { get; set; }
+
+        [Inject]
+        public NavigationManager navmanager { get; set; }
+
+        protected override async Task OnInitializedAsync()
+        {
+            if (GeneralStaticdata.currentclientmodel != null)
+            {
+                loggedinclient = GeneralStaticdata.currentclientmodel;
+            }
+            else
+            {
+                navmanager.NavigateTo("/");
+            }
+
+        }
+
+        public async void EditClient()
+        {
+            await _clientDataService.UpdateClientModel(loggedinclient);
+            navmanager.NavigateTo("/clientmainpage");
+        }
+    }

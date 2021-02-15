@@ -58,7 +58,7 @@ namespace Logic.DAL
              BTWNumber = "12345",
              data = new NAWDataModel()
              {
-              Age = 22,
+              Age = "22",
               City = "New york",
               EmailAdress = "test@hotmail.com",
               FirstName = "test",
@@ -87,7 +87,7 @@ namespace Logic.DAL
              BTWNumber = "12345",
              data = new NAWDataModel()
              {
-              Age = 22,
+              Age = "22",
               City = "New york",
               EmailAdress = "test@hotmail.com",
               FirstName = "test",
@@ -143,7 +143,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "Utrecht",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -176,7 +176,7 @@ namespace Logic.DAL
              BTWNumber = "12345",
              data = new NAWDataModel()
              {
-              Age = 22,
+              Age = "22",
               City = "New york",
               EmailAdress = "test@hotmail.com",
               FirstName = "test",
@@ -220,7 +220,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "test",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -261,7 +261,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "test",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -310,7 +310,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "Utrecht",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -355,7 +355,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "Utrecht",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -406,7 +406,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "Utrecht",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -451,7 +451,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "Utrecht",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -496,7 +496,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "test",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",
@@ -538,7 +538,7 @@ namespace Logic.DAL
                 ,
                  NAWData = new NAWDataModel()
                  {
-                  Age = 21,
+                  Age = "22",
                   City = "test",
                   EmailAdress = "test@hotmail.com",
                   FirstName = "test",

@@ -7,9 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ModellenBureauBlazorVersion2.Pages
+namespace ModellenBureauBlazorVersion3.Client.Pages
 {
-    public partial class ClientAddData
+    public partial class ModelSuccesfulyJoinedEventFemale
     {
         //[Inject]
         //public IAdminDataService _adminDataService { get; set; }
@@ -22,29 +22,29 @@ namespace ModellenBureauBlazorVersion2.Pages
         //[Inject]
         //public IMaleModelDataService _maleModelDataService { get; set; }
 
-        //public ClientModel loggedinclient { get; set; }
-
         //[Inject]
         //public NavigationManager navmanager { get; set; }
+        //[Parameter]
+        //public string id { get; set; }
+
+        //public void GoBack()
+        //{
+        //    navmanager.NavigateTo("/modelmainpage");
+        //}
 
         //protected override async Task OnInitializedAsync()
         //{
-        //    if (GeneralStaticdata.currentclientmodel != null)
+        //    if (GeneralStaticdata.currentfemalemodel != null)
         //    {
-        //        loggedinclient = GeneralStaticdata.currentclientmodel;
+        //        var item = await _eventDataService.GetAllEvents();
+        //        var chosenevent = item.Where(a => a.id == id).FirstOrDefault();
+        //        chosenevent.FemaleModels.Add(GeneralStaticdata.currentfemalemodel);
+        //        await _eventDataService.UpdateEventsModel(chosenevent);
         //    }
-        //    else
+        //    else 
         //    {
         //        navmanager.NavigateTo("/");
         //    }
-
         //}
-
-        //public async void EditClient()
-        //{
-        //    await _clientDataService.UpdateClientModel(loggedinclient);
-        //    navmanager.NavigateTo("/clientmainpage");
-        //}
-
     }
 }

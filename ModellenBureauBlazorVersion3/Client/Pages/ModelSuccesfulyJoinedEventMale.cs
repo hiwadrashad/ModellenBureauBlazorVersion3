@@ -1,5 +1,4 @@
-﻿using Data.Models;
-using Logic.StaticResources;
+﻿using Logic.StaticResources;
 using Microsoft.AspNetCore.Components;
 using ModellenBureauBlazorVersion3.Client.DataServices;
 using System;
@@ -7,9 +6,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ModellenBureauBlazorVersion2.Pages
+namespace ModellenBureauBlazorVersion3.Client.Pages
 {
-    public partial class ClientAddData
+    public partial class ModelSuccesfulyJoinedEventMale
     {
         //[Inject]
         //public IAdminDataService _adminDataService { get; set; }
@@ -22,29 +21,29 @@ namespace ModellenBureauBlazorVersion2.Pages
         //[Inject]
         //public IMaleModelDataService _maleModelDataService { get; set; }
 
-        //public ClientModel loggedinclient { get; set; }
-
         //[Inject]
         //public NavigationManager navmanager { get; set; }
+        //[Parameter]
+        //public string id { get; set; }
+
+        //public void GoBack()
+        //{
+        //    navmanager.NavigateTo("/modelmainpage");
+        //}
 
         //protected override async Task OnInitializedAsync()
         //{
-        //    if (GeneralStaticdata.currentclientmodel != null)
+        //    if (GeneralStaticdata.currentmalemodel != null)
         //    {
-        //        loggedinclient = GeneralStaticdata.currentclientmodel;
+        //        var item = await _eventDataService.GetAllEvents();
+        //        var chosenevent = item.Where(a => a.id == id).FirstOrDefault();
+        //        chosenevent.MaleModels.Add(GeneralStaticdata.currentmalemodel);
+        //        await _eventDataService.UpdateEventsModel(chosenevent);
         //    }
         //    else
         //    {
         //        navmanager.NavigateTo("/");
         //    }
-
         //}
-
-        //public async void EditClient()
-        //{
-        //    await _clientDataService.UpdateClientModel(loggedinclient);
-        //    navmanager.NavigateTo("/clientmainpage");
-        //}
-
     }
 }
