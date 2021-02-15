@@ -1,0 +1,33 @@
+﻿@page "/succesfullyaddedmodel"
+@using Microsoft.AspNetCore.Components;
+
+    <style>
+        img {
+            transform: translate(450px, 100px);
+            width: 300px;
+        }
+
+        span {
+            display: inline-block;
+            transform: translate(210px, 300px);
+            color: gray;
+        }
+
+        a {
+            display: inline-block;
+            transform: translate(210px, 300px);
+            color: gray;
+        }
+    </style>
+    <img src="/Images/success-icon.png" />
+    <span>Succesfully added model to event </span>
+    <a @onclick="GoBack">Go back</a>
+    @code {
+        [Inject]
+        public NavigationManager navmanager { get; set; }
+
+        public void GoBack()
+        {
+            navmanager.NavigateTo("/clientmainpage");
+        }
+    }

@@ -1,5 +1,141 @@
 ﻿@page "/adminoverviewtonotacceptedaccounts"
+@using Data.Models;
+@using Logic.StaticResources;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
+@if (NotAcceptedClients == null || NotAcceptedFemaleModels == null || NotAcceptedMaleModels == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
 
+    {
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Female model user name</th>
+                    <th>Female model first name</th>
+                    <th>Female model last name</th>
+                    <th>Female model city</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in NotAcceptedFemaleModels)
+                {
+
+                    {
+                        <tr>
+
+                            <td>@item.Username</td>
+                            <td>@item.NAWData.FirstName</td>
+                            <td>@item.NAWData.LastName</td>
+                            <td>@item.NAWData.City</td>
+                            <td>
+                                <a href="@($"amdinacceptfemalemodels/{item.id}")" class="btn btn-primary table-btn">
+                                    invite model
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Male model user name</th>
+                    <th>Male model first name</th>
+                    <th>Male model last name</th>
+                    <th>Male model city</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in NotAcceptedMaleModels)
+                {
+
+                    {
+                        <tr>
+
+                            <td>@item.Username</td>
+                            <td>@item.NAWData.FirstName</td>
+                            <td>@item.NAWData.LastName</td>
+                            <td>@item.NAWData.City</td>
+                            <td>
+                                <a href="@($"amdinacceptmalemodels/{item.id}")" class="btn btn-primary table-btn">
+                                    invite model
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Client user name</th>
+                    <th>Client model first name</th>
+                    <th>Client model last name</th>
+                    <th>Client model city</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in NotAcceptedClients)
+                {
+
+                    {
+                        <tr>
+
+                            <td>@item.UserName</td>
+                            <td>@item.data.FirstName</td>
+                            <td>@item.data.LastName</td>
+                            <td>@item.data.City</td>
+                            <td>
+                                <a href="@($"adminacceptclients/{item.id}")" class="btn btn-primary table-btn">
+                                    invite model
+                                </a>
+
+                            </td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    }
+}
 @code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
+    public List<ClientModel> NotAcceptedClients { get; set; }
+    public List<FemaleModelModel> NotAcceptedFemaleModels { get; set; }
+    public List<MaleModeModel> NotAcceptedMaleModels { get; set; }
+    [Inject]
+    public NavigationManager navmanager { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        NotAcceptedClients = (await _clientDataService.GetAllClients()).Where(a => a.Invited == false).ToList();
+        NotAcceptedFemaleModels = (await _femaleModelDataService.GetAllFemaleModels()).Where(a => a.Invited == false).ToList();
+        NotAcceptedMaleModels = (await _maleModelDataService.GetAllMaleModels()).Where(a => a.Invited == false).ToList();
+    }
 }

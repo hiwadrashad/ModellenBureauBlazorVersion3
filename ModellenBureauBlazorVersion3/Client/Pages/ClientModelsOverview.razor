@@ -1,5 +1,93 @@
 ﻿@page "/clientmodelsoverview"
+@using Data.Models;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
 
+@if (MaleModels == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>males</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in MaleModels)
+            {
+                if (item.Invited == true)
+                {
+                    <tr>
+
+                        <td>@item.Username</td>
+                        <td>
+                            <a href="@($"clientcoupleeventmale/{item.id}")" class="btn btn-primary table-btn">
+                                add model to event
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>females</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in FemaleModels)
+            {
+                if (item.Invited == true)
+                {
+                    <tr>
+
+                        <td>@item.Username</td>
+                        <td>
+                            <a href="@($"clientcoupleeventfemale/{item.id}")" class="btn btn-primary table-btn">
+                                add model to event
+                            </a>
+
+                        </td>
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+
+}
 @code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
+    public List<MaleModeModel> MaleModels { get; set; }
+    public List<FemaleModelModel> FemaleModels { get; set; }
+    [Inject]
+    public NavigationManager navmanager { get; set; }
 
+    protected override async Task OnInitializedAsync()
+    {
+        MaleModels = (await _maleModelDataService.GetAllMaleModels()).ToList();
+        FemaleModels = (await _femaleModelDataService.GetAllFemaleModels()).ToList();
+
+    }
 }

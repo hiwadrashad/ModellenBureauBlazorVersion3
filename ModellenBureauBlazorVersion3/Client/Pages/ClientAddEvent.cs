@@ -27,11 +27,11 @@ namespace ModellenBureauBlazorVersion2.Pages
         [Inject]
         public NavigationManager navmanager { get; set; }
 
-        protected override async Task OnInitializedAsync()
-        {
-            tobeaddedevent = new EventModel();
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    tobeaddedevent = new EventModel();
 
-        }
+        //}
 
         public async void AddEvent()
         {

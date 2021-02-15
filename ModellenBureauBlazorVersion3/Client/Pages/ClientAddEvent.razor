@@ -1,5 +1,53 @@
 ﻿@page "/clientaddevent"
+@using Data.Models;
+@using Logic.StaticResources;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
 
+<EditForm Model="tobeaddedevent" OnValidSubmit="AddEvent">
+    <div class="form-group row">
+        <label class="col-sm-3">City event held in </label>
+        <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@tobeaddedevent.City"></InputText>
+        <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => tobeaddedevent.City)" />
+    </div>
+    <div class="form-group row">
+        <label class="col-sm-3">Event subscribable by non invited models </label>
+        <InputCheckbox id="lastName" class="form-control col-sm-8" @bind-Value="@tobeaddedevent.Public"></InputCheckbox>
+        <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => tobeaddedevent.Public)" />
+    </div>
+    <button type="submit" class="btn btn-primary edit-btn">Add event</button>
+</EditForm>
 @code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
 
+    public EventModel tobeaddedevent { get; set; }
+
+    [Inject]
+    public NavigationManager navmanager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        tobeaddedevent = new EventModel();
+
+    }
+
+    public async void AddEvent()
+    {
+        tobeaddedevent.Organizer = GeneralStaticdata.currentclientmodel;
+        await _eventDataService.AddEvent(tobeaddedevent);
+        navmanager.NavigateTo("/clientmainpage");
+    }
 }
