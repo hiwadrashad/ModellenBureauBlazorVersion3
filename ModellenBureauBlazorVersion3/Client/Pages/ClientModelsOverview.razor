@@ -6,7 +6,28 @@
 @using System.Collections.Generic;
 @using System.Linq;
 @using System.Threading.Tasks;
+<style>
 
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    .imageclass {
+        max-width: 300px;
+    }
+</style>
 @if (MaleModels == null)
 {
     <p><em>Loading...</em></p>
@@ -14,6 +35,19 @@
 else
 {
 
+    foreach (var item in MaleModels)
+    {
+        if (item.Invited == true)
+        {
+            <div class="card">
+                <img class="imageclass" src="/Images/model-icon.png" />
+                <h1>@item.Username</h1>
+                <a href="@($"clientcoupleeventmale/{item.id}")" class="btn btn-primary table-btn">
+                    add model to event
+                </a>
+            </div>
+        }
+    }
     <table class="table">
         <thead>
             <tr>
@@ -40,6 +74,19 @@ else
             }
         </tbody>
     </table>
+    foreach (var item in FemaleModels)
+    {
+        if (item.Invited == true)
+        {
+            <div class="card">
+                <img class="imageclass" src="/Images/model-icon.png" />
+                <h1>@item.Username</h1>
+                <a href="@($"clientcoupleeventfemale/{item.id}")" class="btn btn-primary table-btn">
+                    add model to event
+                </a>
+            </div>
+        }
+    }
     <table class="table">
         <thead>
             <tr>

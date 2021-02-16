@@ -6,6 +6,28 @@
 @using System.Collections.Generic;
 @using System.Linq;
 @using System.Threading.Tasks;
+<style>
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    .imageclass {
+        max-width: 300px;
+    }
+</style>
 @if (AcceptedClients == null || AcceptedFemaleModels == null || AcceptedMaleModels == null)
 {
     <p><em>Loading...</em></p>
@@ -14,6 +36,24 @@ else
 {
 
     {
+        foreach (var item in AcceptedFemaleModels)
+        {
+            {
+                <div class="card">
+                    <img class="imageclass" src="/Images/model-icon.png" />
+                    <h1>@item.Username</h1>
+                    <p class="title">First name</p>
+                    <p>@item.NAWData.FirstName</p>
+                    <p class="title">Last name</p>
+                    <p>@item.NAWData.LastName</p>
+                    <p class="title">City</p>
+                    <p>@item.NAWData.City</p>
+                    <a href="@($"admineditfemalemodel/{item.id}")" class="btn btn-primary table-btn">
+                        invite model
+                    </a>
+                </div>
+            }
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -36,7 +76,7 @@ else
                             <td>@item.NAWData.LastName</td>
                             <td>@item.NAWData.City</td>
                             <td>
-                                <a href="@($"amdineditfemalemodel/{item.id}")" class="btn btn-primary table-btn">
+                                <a href="@($"admineditfemalemodel/{item.id}")" class="btn btn-primary table-btn">
                                     invite model
                                 </a>
 
@@ -46,7 +86,24 @@ else
                 }
             </tbody>
         </table>
-
+        foreach (var item in AcceptedMaleModels)
+        {
+            {
+                <div class="card">
+                    <img class="imageclass" src="/Images/model-icon.png" />
+                    <h1>@item.Username</h1>
+                    <p class="title">First name</p>
+                    <p>@item.NAWData.FirstName</p>
+                    <p class="title">Last name</p>
+                    <p>@item.NAWData.LastName</p>
+                    <p class="title">City</p>
+                    <p>@item.NAWData.City</p>
+                    <a href="@($"admineditmalemodels/{item.id}")" class="btn btn-primary table-btn">
+                        invite model
+                    </a>
+                </div>
+            }
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -69,7 +126,7 @@ else
                             <td>@item.NAWData.LastName</td>
                             <td>@item.NAWData.City</td>
                             <td>
-                                <a href="@($"amdineditmalemodels/{item.id}")" class="btn btn-primary table-btn">
+                                <a href="@($"admineditmalemodels/{item.id}")" class="btn btn-primary table-btn">
                                     invite model
                                 </a>
 
@@ -79,7 +136,24 @@ else
                 }
             </tbody>
         </table>
-
+        foreach (var item in AcceptedClients)
+        {
+            {
+<div class="card">
+    <img class="imageclass" src="/Images/model-icon.png" />
+    <h1>@item.UserName</h1>
+    <p class="title">First name</p>
+    <p>@item.data.FirstName</p>
+    <p class="title">Last name</p>
+    <p>@item.data.LastName</p>
+    <p class="title">City</p>
+    <p>@item.data.City</p>
+    <a href="@($"admineditclient/{item.id}")" class="btn btn-primary table-btn">
+        invite model
+    </a>
+</div>
+            }
+        }
         <table class="table">
             <thead>
                 <tr>
@@ -114,17 +188,17 @@ else
         </table>
     }
 }
-    @code {
-        [Inject]
-        public IAdminDataService _adminDataService { get; set; }
-        [Inject]
-        public IClientDataService _clientDataService { get; set; }
-        [Inject]
-        public IEventDataService _eventDataService { get; set; }
-        [Inject]
-        public IFemaleModelDataService _femaleModelDataService { get; set; }
-        [Inject]
-        public IMaleModelDataService _maleModelDataService { get; set; }
+@code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
     public List<ClientModel> AcceptedClients { get; set; }
     public List<FemaleModelModel> AcceptedFemaleModels { get; set; }
     public List<MaleModeModel> AcceptedMaleModels { get; set; }
@@ -137,4 +211,4 @@ else
         AcceptedFemaleModels = (await _femaleModelDataService.GetAllFemaleModels()).Where(a => a.Invited == true).ToList();
         AcceptedMaleModels = (await _maleModelDataService.GetAllMaleModels()).Where(a => a.Invited == true).ToList();
     }
-    }
+}

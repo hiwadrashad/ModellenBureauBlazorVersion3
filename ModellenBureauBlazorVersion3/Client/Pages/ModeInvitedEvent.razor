@@ -7,50 +7,91 @@
 @using System.Collections.Generic;
 @using System.Linq;
 @using System.Threading.Tasks;
+<style>
+
+    .card {
+        box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+        max-width: 300px;
+        text-align: center;
+        float: left;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .title {
+        color: grey;
+        font-size: 18px;
+    }
+
+    .imageclass {
+        max-width: 300px;
+    }
+</style>
 @if (Events == null)
 {
     <p><em>Loading...</em></p>
 }
 else
 {
+    foreach (var item in Events)
+    {
+        if (item.Organizer.Invited == true)
+        {
+            <div class="card">
+                <img class="imageclass" src="/Images/model-icon.png" />
+                <h1>@item.Organizer.UserName</h1>
+                <p class="title">First name</p>
+                <p>@item.Organizer.data.FirstName</p>
+                <p class="title">Last name</p>
+                <p>@item.Organizer.data.LastName</p>
+                <p class="title">City</p>
+                <p>@item.City</p>
+                <a href="@($"modelsuccesfulyjoinedeventfemale/{item.id}")" class="btn btn-primary table-btn">
+                    Join event
+                </a>
+            </div>
+        }
+    }
 
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>User name</th>
-                    <th>First name</th>
-                    <th>Last name</th>
-                    <th>City</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Events)
+    <table class="table">
+        <thead>
+            <tr>
+                <th>User name</th>
+                <th>First name</th>
+                <th>Last name</th>
+                <th>City</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Events)
+            {
+                if (item.Organizer.Invited == true)
                 {
-                    if (item.Organizer.Invited == true )
-                    {
-                        <tr>
+                    <tr>
 
-                            <td>@item.Organizer.UserName</td>
-                            <td>@item.Organizer.data.FirstName</td>
-                            <td>@item.Organizer.data.LastName</td>
-                            <td>@item.City</td>
-                        </tr>
-                    }
+                        <td>@item.Organizer.UserName</td>
+                        <td>@item.Organizer.data.FirstName</td>
+                        <td>@item.Organizer.data.LastName</td>
+                        <td>@item.City</td>
+                    </tr>
                 }
-            </tbody>
-        </table>
-}    
-    @code {
-        [Inject]
-        public IAdminDataService _adminDataService { get; set; }
-        [Inject]
-        public IClientDataService _clientDataService { get; set; }
-        [Inject]
-        public IEventDataService _eventDataService { get; set; }
-        [Inject]
-        public IFemaleModelDataService _femaleModelDataService { get; set; }
-        [Inject]
-        public IMaleModelDataService _maleModelDataService { get; set; }
+            }
+        </tbody>
+    </table>
+}
+@code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
 
     public MaleModeModel loginmalemodel { get; set; }
     public FemaleModelModel loginfemalemodel { get; set; }
@@ -70,4 +111,4 @@ else
             Events = (await _eventDataService.GetAllEvents()).Where(a => a.MaleModels.Contains(GeneralStaticdata.currentmalemodel)).ToList();
         }
     }
-    }
+}

@@ -1,14 +1,14 @@
-﻿@page "/modelmainpage"
+﻿@page "/"
 @using Microsoft.AspNetCore.Components;
 
 <style>
     .placement {
-        transform: translate(250px, 150px);
+        transform: translate(150px, 150px);
     }
 
     .textplacement {
         display: inline-block;
-        transform: translate(50px,300px);
+        transform: translate(-50px,300px);
         color: gray;
     }
 
@@ -23,7 +23,8 @@
 <span class="textplacement" @onclick="GoToAddData">Add model data</span>
 <img src="/Images/event-icon.png" width="250" class="placement" />
 <span class="textplacement" @onclick="GoToEvents">Go to events overview</span>
-
+<img src="/Images/invitation.png" width="250" class="placement" />
+<span class="textplacement" @onclick="GoToEvents">Go to invitations</span>
 
 @code {
     [Inject]
@@ -37,5 +38,10 @@
     public void GoToEvents()
     {
         navmanager.NavigateTo("/modeleventsoverview");
+    }
+
+    public void GoToInvitations()
+    {
+        navmanager.NavigateTo("/modelinvitedevent");
     }
 }
