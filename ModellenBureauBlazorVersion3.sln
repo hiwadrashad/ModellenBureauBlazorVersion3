@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModellenBureauBlazorVersion
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ModellenBureauBlazorVersion3.Shared", "ModellenBureauBlazorVersion3\Shared\ModellenBureauBlazorVersion3.Shared.csproj", "{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{1226462D-6587-42FC-8733-D96A43287BC9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D7881A1-F38C-45FB-A4E4-A4C29D9A767C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1226462D-6587-42FC-8733-D96A43287BC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1226462D-6587-42FC-8733-D96A43287BC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1226462D-6587-42FC-8733-D96A43287BC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1226462D-6587-42FC-8733-D96A43287BC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

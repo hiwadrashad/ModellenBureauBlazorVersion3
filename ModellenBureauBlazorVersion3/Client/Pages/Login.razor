@@ -1,4 +1,4 @@
-﻿@page "/login"
+﻿@page "/"
 @inject NavigationManager UriHelper
 @using Data.Models;
 @using Logic.StaticResources;
@@ -10,7 +10,7 @@
     @@import "bourbon";
 
     body {
-        background: #00ff90 !important;
+        background: #fff !important;
     }
 
     .wrapper {
@@ -47,6 +47,9 @@
     }
 
     }
+    .isoimage {
+        position: absolute;
+    }
 
     input[type="text"] {
         margin-bottom: -1px;
@@ -59,20 +62,21 @@
         border-top-left-radius: 0;
         border-top-right-radius: 0;
     }
-    }
 </style>
-
-<EditForm Model="@loginmodel" OnValidSubmit="@SuccesfullLogin">
-    <div class="wrapper">
-        <div class="form-signin">
-            <h2 class="form-signin-heading">Please login</h2>
-            <input type="text" class="form-control" name="username" @bind-value="loginmodel.UserName" placeholder="User name" required="" autofocus="" />
-            <input type="password" class="form-control" name="password" @bind-value="loginmodel.Password" placeholder="Password" required="" />
-            <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
-            <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToRegister">Register</button>
+<img class="isoimage" src="/Images/isometric_image1.png" style="position: absolute; z-index: -1"; width="600" />
+<div class="formclass">
+    <EditForm Model="@loginmodel" OnValidSubmit="@SuccesfullLogin">
+        <div class="wrapper">
+            <div class="form-signin">
+                <h2 class="form-signin-heading">Please login</h2>
+                <input type="text" class="form-control" name="username" @bind-value="loginmodel.UserName" placeholder="User name" required="" autofocus="" />
+                <input type="password" class="form-control" name="password" @bind-value="loginmodel.Password" placeholder="Password" required="" />
+                <button class="btn btn-lg btn-success btn-block" type="submit">Login</button>
+                <button class="btn btn-lg btn-success btn-block" type="button" @onclick="GoToRegister">Register</button>
+            </div>
         </div>
-    </div>
-</EditForm>
+    </EditForm>
+</div>
 @code {
     [Inject]
     public IAdminDataService _adminDataService { get; set; }
@@ -105,7 +109,7 @@
         {
             navmanager.NavigateTo("/adminmainpage");
             GeneralStaticdata.loggedin = true;
-            //GenericStaticdata<AdminModel>.loggedinmodel = adminitem.Where(a => a.Username == loginmodel.UserName).FirstOrDefault(); 
+            //GenericStaticdata<AdminModel>.loggedinmodel = adminitem.Where(a => a.Username == loginmodel.UserName).FirstOrDefault();
             GeneralStaticdata.currentadminmodel = adminitem.Where(a => a.Username == loginmodel.UserName).FirstOrDefault();
             GeneralStaticdata.currentclientmodel = null;
             GeneralStaticdata.currentfemalemodel = null;

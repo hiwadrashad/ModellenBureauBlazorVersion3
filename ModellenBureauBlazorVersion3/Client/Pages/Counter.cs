@@ -15,19 +15,19 @@ namespace ModellenBureauBlazorVersion3.Client.Pages
         public IAdminDataService _dataService { get; set; }
         public List<string> TestStrings { get; set; }
         public IEnumerable<string> awaitedlist { get; set; }
-        protected override async Task OnInitializedAsync()
-        {
-            var item = await _dataService.GetAllAdmins();
-            //awaitedlist = item;
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    var item = await _dataService.GetAllAdmins();
+        //    //awaitedlist = item;
+        //}
 
-        public async void Clicked()
-        {
-            var item = await _dataService.GetAllAdmins();
-            //awaitedlist = item;
-            StateHasChanged();
-            //TestStrings = (await _dataService.GetAllAdmins()).ToList();
-            //StateHasChanged();
-        }
+        //public async void Clicked()
+        //{
+        //    var item = await _dataService.GetAllAdmins();
+        //    //awaitedlist = item;
+        //    StateHasChanged();
+        //    //TestStrings = (await _dataService.GetAllAdmins()).ToList();
+        //    //StateHasChanged();
+        //}
     }
 }
