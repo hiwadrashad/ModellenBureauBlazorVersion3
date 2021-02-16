@@ -1,5 +1,131 @@
 ﻿@page "/admineditfemalemodel"
+@page "/admineditfemalemodel/{id}"
+@using Data.Models;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
+@using Data.Enums.BioMarker;
+<section class="employee-edit">
+    <h1 class="page-title">Edit</h1>
+    <EditForm Model="modeltoedit" OnValidSubmit="EditFemaleModel">
+        <div class="form-group row">
+            <label class="col-sm-3">Username </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.Username"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.Username)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Password </label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.Password"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.Password)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Age</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.Age"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.Age)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> City</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.City"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.City)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Email</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.EmailAdress"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.EmailAdress)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Firstname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.FirstName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.FirstName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Lastname</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.LastName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.LastName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Postal code</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.PostalCode"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.PostalCode)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street name</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.StreetName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.StreetName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Street number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.StreetNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.StreetNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Telephone number</label>
+            <InputText class="form-control col-sm-8" @bind-Value="@modeltoedit.NAWData.TelephoneNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.NAWData.TelephoneNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Eye color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@modeltoedit.biodata.eyecolor">
+                @foreach (var item in Enum.GetValues(typeof(EyeColor)))
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.biodata.eyecolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Hair color</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@modeltoedit.biodata.haircolor">
+                @foreach (var item in Enum.GetValues(typeof(HairColor)))
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.biodata.haircolor)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3"> Height</label>
+            <InputSelect class="form-control col-sm-8" @bind-Value="@modeltoedit.biodata.height">
+                @foreach (var item in Enum.GetValues(typeof(Height)))
+                {
+                    <option value="@item">@item</option>
+                }
+            </InputSelect>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.biodata.height)" />
+        </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
+    </EditForm>
 
+</section>
 @code {
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
+    [Parameter]
+    public string id { get; set; }
+    public FemaleModelModel modeltoedit { get; set; }
 
+    [Inject]
+    public NavigationManager navmanager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        modeltoedit = (await _femaleModelDataService.GetFemaleModelDetails(id));
+    }
+
+    public async void EditFemaleModel()
+    {
+        await _femaleModelDataService.UpdateFemaleModel(modeltoedit);
+        navmanager.NavigateTo("/adminmainpage");
+    }
 }

@@ -10,32 +10,32 @@ namespace ModellenBureauBlazorVersion2.Pages
 {
     public partial class AdminAcceptClients
     {
-        [Inject]
-        public IAdminDataService _adminDataService { get; set; }
-        [Inject]
-        public IClientDataService _clientDataService { get; set; }
-        [Inject]
-        public IEventDataService _eventDataService { get; set; }
-        [Inject]
-        public IFemaleModelDataService _femaleModelDataService { get; set; }
-        [Inject]
-        public IMaleModelDataService _maleModelDataService { get; set; }
+        //[Inject]
+        //public IAdminDataService _adminDataService { get; set; }
+        //[Inject]
+        //public IClientDataService _clientDataService { get; set; }
+        //[Inject]
+        //public IEventDataService _eventDataService { get; set; }
+        //[Inject]
+        //public IFemaleModelDataService _femaleModelDataService { get; set; }
+        //[Inject]
+        //public IMaleModelDataService _maleModelDataService { get; set; }
 
-        [Inject]
-        public NavigationManager navmanager { get; set; }
-        [Parameter]
-        public string id { get; set; }
+        //[Inject]
+        //public NavigationManager navmanager { get; set; }
+        //[Parameter]
+        //public string id { get; set; }
 
-        public void GoBack()
-        {
-            navmanager.NavigateTo("/adminmainpage");
-        }
+        //public void GoBack()
+        //{
+        //    navmanager.NavigateTo("/adminmainpage");
+        //}
 
-        protected override async Task OnInitializedAsync()
-        {
-            var item = await _clientDataService.GetClientModelDetails(id);
-            item.Invited = true;
-            await _clientDataService.UpdateClientModel(item);
-        }
+        //protected override async Task OnInitializedAsync()
+        //{
+        //    var item = await _clientDataService.GetClientModelDetails(id);
+        //    item.Invited = true;
+        //    await _clientDataService.UpdateClientModel(item);
+        //}
     }
 }

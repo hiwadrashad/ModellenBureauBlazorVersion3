@@ -1,5 +1,73 @@
 ﻿@page "/modelinvitedevent"
-
-@code {
-
+@using Data.Models;
+@using Logic.StaticResources;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
+@if (Events == null)
+{
+    <p><em>Loading...</em></p>
 }
+else
+{
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>User name</th>
+                    <th>First name</th>
+                    <th>Last name</th>
+                    <th>City</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Events)
+                {
+                    if (item.Organizer.Invited == true )
+                    {
+                        <tr>
+
+                            <td>@item.Organizer.UserName</td>
+                            <td>@item.Organizer.data.FirstName</td>
+                            <td>@item.Organizer.data.LastName</td>
+                            <td>@item.City</td>
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+}    
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+
+    public MaleModeModel loginmalemodel { get; set; }
+    public FemaleModelModel loginfemalemodel { get; set; }
+    public List<EventModel> Events { get; set; }
+
+    [Inject]
+    public NavigationManager navmanager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (GeneralStaticdata.currentfemalemodel != null)
+        {
+            Events = (await _eventDataService.GetAllEvents()).Where(a => a.FemaleModels.Contains(GeneralStaticdata.currentfemalemodel)).ToList();
+        }
+        else
+        {
+            Events = (await _eventDataService.GetAllEvents()).Where(a => a.MaleModels.Contains(GeneralStaticdata.currentmalemodel)).ToList();
+        }
+    }
+    }

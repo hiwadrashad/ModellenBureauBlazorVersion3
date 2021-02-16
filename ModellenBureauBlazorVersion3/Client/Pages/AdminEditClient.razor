@@ -1,6 +1,110 @@
 ﻿@page "/admineditclient"
+@page "/admineditclient/{id}"
+    @using Data.Models;
+    @using Microsoft.AspNetCore.Components;
+    @using ModellenBureauBlazorVersion3.Client.DataServices;
+    @using System;
+    @using System.Collections.Generic;
+    @using System.Linq;
+    @using System.Threading.Tasks;
+<section class="employee-edit">
+    <h1 class="page-title">Edit Client</h1>
+    <EditForm Model="modeltoedit" OnValidSubmit="EditClient">
+        <div class="form-group row">
+            <label class="col-sm-3">Username </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.UserName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.UserName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Password </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.Password"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.Password)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">KVK number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.KVKNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.KVKNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">BTW number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.BTWNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.BTWNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Age </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.Age"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.Age)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">City </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.City"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.City)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">email adress </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.EmailAdress"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.EmailAdress)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">First name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.FirstName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.FirstName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Last name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.LastName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.LastName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Postal code </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.PostalCode"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.PostalCode)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Street name </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.StreetName"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.StreetName)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Street number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.StreetNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.StreetNumber)" />
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-3">Telephone number </label>
+            <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@modeltoedit.data.TelephoneNumber"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => modeltoedit.data.TelephoneNumber)" />
+        </div>
+        <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
+    </EditForm>
 
+</section>
+    @code {
+        [Inject]
+        public IAdminDataService _adminDataService { get; set; }
+        [Inject]
+        public IClientDataService _clientDataService { get; set; }
+        [Inject]
+        public IEventDataService _eventDataService { get; set; }
+        [Inject]
+        public IFemaleModelDataService _femaleModelDataService { get; set; }
+        [Inject]
+        public IMaleModelDataService _maleModelDataService { get; set; }
+        [Parameter]
+        public string id { get; set; }
+        public ClientModel modeltoedit { get; set; }
 
-@code {
+        [Inject]
+        public NavigationManager navmanager { get; set; }
 
-}
+        protected override async Task OnInitializedAsync()
+        {
+            modeltoedit = (await _clientDataService.GetClientModelDetails(id));
+        }
+
+        public async void EditClient()
+        {
+            await _clientDataService.UpdateClientModel(modeltoedit);
+            navmanager.NavigateTo("/adminmainpage");
+        }
+    }
