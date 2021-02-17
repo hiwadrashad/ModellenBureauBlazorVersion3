@@ -34,6 +34,10 @@ namespace ModellenBureauBlazorVersion3.Server
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddCors(options =>
+            {
+                options.AddPolicy("CorsPolicy", builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+            });
             services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
@@ -73,7 +77,7 @@ namespace ModellenBureauBlazorVersion3.Server
             app.UseIdentityServer();
             app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseCors("CorsPolicy");
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapRazorPages();

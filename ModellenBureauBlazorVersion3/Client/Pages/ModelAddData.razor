@@ -5,6 +5,10 @@
     @using ModellenBureauBlazorVersion3.Client.DataServices;
     @using System.Threading.Tasks;
     @using Data.Enums.BioMarker;
+@using System.IO
+@using Tewr.Blazor.FileReader
+@inject IFileReaderService fileReader
+@inject HttpClient client 
 @if (GeneralStaticdata.currentfemalemodel != null)
 {
 <section class="employee-edit">
@@ -97,7 +101,10 @@
         </div>
         <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
     </EditForm>
-   
+    <div class="form-group">
+        <label class="col-sm-3"> Image </label>
+        <input type="file" @ref="inputReference" @onchange="async () => await OpenFileAsync()" />
+    </div>
 </section>
 }
 else
@@ -190,12 +197,43 @@ else
             </InputSelect>
             <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loginmalemodel.biodata.height)" />
         </div>
+        <div class="form-group">
+            <label class="col-sm-3"> Image </label>
+          <input type="file" @ref="inputReference" @onchange="async () => await OpenFileAsync()"/>
+        </div>
         <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
     </EditForm>
 
 </section>
 }
     @code {
+        ElementReference inputReference;
+        string message = string.Empty;
+        string imagePath = null;
+
+        string fileName = string.Empty;
+        string type = string.Empty;
+        string size = string.Empty;
+
+        Stream fileStream = null;
+
+        async Task OpenFileAsync()
+        {
+            var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+            if (file == null)
+                return;
+            var fileinfo = await file.ReadFileInfoAsync();
+            fileName = fileinfo.Name;
+            size = $"{fileinfo.Size}b";
+            type = fileinfo.Type;
+
+            using (var ms = await file.CreateMemoryStreamAsync((int)fileinfo.Size))
+            {
+                fileStream = ms;
+            }
+
+        }
+
         [Inject]
         public IAdminDataService _adminDataService { get; set; }
         [Inject]
@@ -235,12 +273,24 @@ else
 
         public async void EditMaleModel()
         {
+            var content = new MultipartFormDataContent();
+            content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+
+            content.Add(new StreamContent(fileStream, (int)fileStream.Length), "image", fileName);
+            var response = await client.PostAsync("https://localhost:44393/api/imageupload", content);
             await _maleModelDataService.UpdateMaleModel(loginmalemodel);
             navmanager.NavigateTo("/modelmainpage");
+
+
         }
 
         public async void EditFemaleModel()
         {
+            var content = new MultipartFormDataContent();
+            content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+
+            content.Add(new StreamContent(fileStream, (int)fileStream.Length), "image", fileName);
+            var response = await client.PostAsync("https://localhost:44393/api/imageupload", content);
             await _femaleModelDataService.UpdateFemaleModel(loginfemalemodel);
             navmanager.NavigateTo("/modelmainpage");
 

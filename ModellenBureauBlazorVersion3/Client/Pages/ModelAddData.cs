@@ -4,10 +4,12 @@ using Microsoft.AspNetCore.Components;
 using ModellenBureauBlazorVersion3.Client.DataServices;
 using System.Threading.Tasks;
 
+
 namespace ModellenBureauBlazorVersion2.Pages
 {
     public partial class ModelAddData
     {
+        
         [Inject]
         public IAdminDataService _adminDataService { get; set; }
         [Inject]

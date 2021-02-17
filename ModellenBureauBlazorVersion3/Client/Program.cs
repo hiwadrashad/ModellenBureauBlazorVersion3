@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Tewr.Blazor.FileReader;
 
 namespace ModellenBureauBlazorVersion3.Client
 {
@@ -18,7 +19,11 @@ namespace ModellenBureauBlazorVersion3.Client
         {
             var builder = WebAssemblyHostBuilder.CreateDefault(args);
             builder.RootComponents.Add<App>("app");
-
+            builder.Services.AddFileReaderService(options =>
+            {
+                options.UseWasmSharedBuffer = true;
+            }
+            );
             builder.Services.AddHttpClient("ModellenBureauBlazorVersion3.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
                 .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
 
