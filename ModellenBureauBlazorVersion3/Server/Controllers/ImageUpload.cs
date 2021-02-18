@@ -44,6 +44,7 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
             }
 
             GeneralStaticdata.chosenimage = image;
+            GeneralStaticdata.ImagePath = filePath;
 
             return Ok($"Images/{newFileName}");
         }

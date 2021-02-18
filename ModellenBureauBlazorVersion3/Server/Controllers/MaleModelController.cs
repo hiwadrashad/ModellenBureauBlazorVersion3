@@ -1,6 +1,7 @@
 ﻿using Data.Models;
 using Logic.DAL;
 using Logic.Interfaces;
+using Logic.StaticResources;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -40,7 +41,10 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            model.Image = GeneralStaticdata.chosenimage;
+            model.imagepath = GeneralStaticdata.ImagePath;
+            GeneralStaticdata.chosenimage = null;
+            GeneralStaticdata.ImagePath = null;
             return Created("event", _dataService.AddMaleModelReturnType(model));
         }
 

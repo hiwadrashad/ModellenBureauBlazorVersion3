@@ -1,13 +1,16 @@
 ﻿@page "/clientaddata"
-    @using Data.Models;
-    @using Logic.StaticResources;
-    @using Microsoft.AspNetCore.Components;
-    @using ModellenBureauBlazorVersion3.Client.DataServices;
-    @using System;
-    @using System.Collections.Generic;
-    @using System.Linq;
-    @using System.Threading.Tasks;
-
+@using Data.Models;
+@using Logic.StaticResources;
+@using Microsoft.AspNetCore.Components;
+@using ModellenBureauBlazorVersion3.Client.DataServices;
+@using System;
+@using System.Collections.Generic;
+@using System.Linq;
+@using System.Threading.Tasks;
+@using System.IO
+@using Tewr.Blazor.FileReader
+@inject IFileReaderService fileReader
+@inject HttpClient client
 <section class="employee-edit">
     <h1 class="page-title">Edit</h1>
     <EditForm Model="loggedinclient" OnValidSubmit="EditClient">
@@ -76,43 +79,79 @@
             <InputText id="lastName" class="form-control col-sm-8" @bind-Value="@loggedinclient.data.TelephoneNumber"></InputText>
             <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => loggedinclient.data.TelephoneNumber)" />
         </div>
+        <div class="form-group">
+            <label class="col-sm-3"> Image </label>
+            <input type="file" @ref="inputReference" @onchange="async () => await OpenFileAsync()" />
+        </div>
         <button type="submit" class="btn btn-primary edit-btn">Save changes</button>
     </EditForm>
 
 </section>
-    @code {
-        [Inject]
-        public IAdminDataService _adminDataService { get; set; }
-        [Inject]
-        public IClientDataService _clientDataService { get; set; }
-        [Inject]
-        public IEventDataService _eventDataService { get; set; }
-        [Inject]
-        public IFemaleModelDataService _femaleModelDataService { get; set; }
-        [Inject]
-        public IMaleModelDataService _maleModelDataService { get; set; }
+@code {
+    ElementReference inputReference;
+    string message = string.Empty;
+    string imagePath = null;
 
-        public ClientModel loggedinclient { get; set; }
+    string fileName = string.Empty;
+    string type = string.Empty;
+    string size = string.Empty;
 
-        [Inject]
-        public NavigationManager navmanager { get; set; }
+    Stream fileStream = null;
 
-        protected override async Task OnInitializedAsync()
+    async Task OpenFileAsync()
+    {
+        var file = (await fileReader.CreateReference(inputReference).EnumerateFilesAsync()).FirstOrDefault();
+        if (file == null)
+            return;
+        var fileinfo = await file.ReadFileInfoAsync();
+        fileName = fileinfo.Name;
+        size = $"{fileinfo.Size}b";
+        type = fileinfo.Type;
+
+        using (var ms = await file.CreateMemoryStreamAsync((int)fileinfo.Size))
         {
-            if (GeneralStaticdata.currentclientmodel != null)
-            {
-                loggedinclient = GeneralStaticdata.currentclientmodel;
-            }
-            else
-            {
-                navmanager.NavigateTo("/");
-            }
-
+            fileStream = ms;
         }
 
-        public async void EditClient()
-        {
-            await _clientDataService.UpdateClientModel(loggedinclient);
-            navmanager.NavigateTo("/clientmainpage");
-        }
     }
+
+    [Inject]
+    public IAdminDataService _adminDataService { get; set; }
+    [Inject]
+    public IClientDataService _clientDataService { get; set; }
+    [Inject]
+    public IEventDataService _eventDataService { get; set; }
+    [Inject]
+    public IFemaleModelDataService _femaleModelDataService { get; set; }
+    [Inject]
+    public IMaleModelDataService _maleModelDataService { get; set; }
+
+    public ClientModel loggedinclient { get; set; }
+
+    [Inject]
+    public NavigationManager navmanager { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (GeneralStaticdata.currentclientmodel != null)
+        {
+            loggedinclient = GeneralStaticdata.currentclientmodel;
+        }
+        else
+        {
+            navmanager.NavigateTo("/");
+        }
+
+    }
+
+    public async void EditClient()
+    {
+        var content = new MultipartFormDataContent();
+        content.Headers.ContentDisposition = new System.Net.Http.Headers.ContentDispositionHeaderValue("form-data");
+
+        content.Add(new StreamContent(fileStream, (int)fileStream.Length), "image", fileName);
+        var response = await client.PostAsync("https://localhost:44393/api/imageupload", content);
+        await _clientDataService.UpdateClientModel(loggedinclient);
+        navmanager.NavigateTo("/clientmainpage");
+    }
+}

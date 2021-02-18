@@ -15,6 +15,7 @@ namespace Logic.StaticResources
         public static ClientModel currentclientmodel { get; set; }
         public static AdminModel currentadminmodel { get; set; }
         public static IFormFile chosenimage { get; set; }
+        public static string ImagePath { get; set; }
 
     }
 }

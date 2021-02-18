@@ -19,6 +19,7 @@ namespace Data.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public IFormFile Image {get;set;}
+        public string imagepath { get; set; }
         public bool Invited { get; set; }
         public List<EventModel> Events { get; set; } = new List<EventModel>();
         public Action<object,string> Notifications { get; set; }

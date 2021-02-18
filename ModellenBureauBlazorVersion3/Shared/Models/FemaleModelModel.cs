@@ -17,6 +17,7 @@ namespace Data.Models
         [Display(Name = "User name")]
         public string Username { get; set; }
         public IFormFile Image { get; set; }
+        public string imagepath { get; set; }
         public bool Invited { get; set; }
         public BioDataModel biodata { get; set; } = new BioDataModel();
         [Display(Name = "Previously attended events")]

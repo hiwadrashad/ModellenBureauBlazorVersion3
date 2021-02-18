@@ -44,7 +44,7 @@ namespace ModellenBureauBlazorVersion3.Server.Controllers
 
             if (!ModelState.IsValid)
                 return BadRequest(ModelState);
-
+            
             return Created("admin", _dataService.AddAdminReturnType(model));
         }
 
